@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.Localization;
+
 namespace JsonBasedLocalization.Web
 {
     public class Program
@@ -8,6 +11,18 @@ namespace JsonBasedLocalization.Web
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddLocalization();
+
+            builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+
+            builder.Services.AddMvc()
+                   .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                   .AddDataAnnotationsLocalization(options =>
+                   {
+                       options.DataAnnotationLocalizerProvider = (type, factory) => factory.Create(typeof(JsonStringLocalizerFactory));
+                   });
+                   
 
             var app = builder.Build();
 
