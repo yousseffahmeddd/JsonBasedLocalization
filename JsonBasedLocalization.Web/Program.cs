@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Localization;
+using System.Globalization;
 
 namespace JsonBasedLocalization.Web
 {
@@ -22,6 +24,20 @@ namespace JsonBasedLocalization.Web
                    {
                        options.DataAnnotationLocalizerProvider = (type, factory) => factory.Create(typeof(JsonStringLocalizerFactory));
                    });
+
+            builder.Services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                    new CultureInfo("en-US"),
+                    new CultureInfo("ar-EG"),
+                    new CultureInfo("de-DE"),
+                };
+
+                options.DefaultRequestCulture = new RequestCulture(culture: supportedCultures[0], uiCulture: supportedCultures[0]);
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
                    
 
             var app = builder.Build();
@@ -38,6 +54,20 @@ namespace JsonBasedLocalization.Web
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            var supportedCultures = new[]
+            {
+                "en-US",
+                "ar-EG",
+                "de-DE"
+            };
+
+            var localizationOptions = new RequestLocalizationOptions()
+                                          .SetDefaultCulture(supportedCultures[0])
+                                          .AddSupportedCultures(supportedCultures)
+                                          .AddSupportedUICultures(supportedCultures);
+
+            app.UseRequestLocalization(localizationOptions);
 
             app.UseAuthorization();
 
