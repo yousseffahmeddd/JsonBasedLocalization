@@ -19,7 +19,7 @@ namespace JsonBasedLocalization.Web.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.WelcomeMessage = _localizer["welcome"];
+            ViewBag.WelcomeMessage = string.Format(_localizer["welcome"], "Joe");
             return View();
         }
 

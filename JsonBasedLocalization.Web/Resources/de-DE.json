@@ -1,3 +1,14 @@
 {
-  "welcome": "Willkommen, wie geht es dir?"
+  "welcome": "Willkommen {0}, wie geht es dir?",
+  "home": "Hauptsächlich",
+  "privacy": "Privatsphäre",
+  "culture": "Sprache",
+  "uiCulture": "UI-Sprache",
+  "date": "Datum",
+  "currency": "Währung",
+  "numbers": "Zahlen",
+  "create": "Konstruktion",
+  "save": "Schaltfläche",
+  "name": "Name",
+  "required": "Wünschenswert"
 }
